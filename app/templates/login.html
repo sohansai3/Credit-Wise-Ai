@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-shell">
+  <section class="auth-panel">
+    <h1>CreditWise AI</h1>
+    <p class="text-muted">Credit card approval and risk assessment for lending teams.</p>
+    {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+    <form method="post" action="/login-view" class="vstack gap-3">
+      <input class="form-control" name="email" type="email" placeholder="Email" required>
+      <input class="form-control" name="password" type="password" placeholder="Password" required>
+      <button class="btn btn-primary w-100">Login</button>
+    </form>
+    <a href="/register-view" class="d-block mt-3">Create an account</a>
+  </section>
+</div>
+{% endblock %}

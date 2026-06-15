@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3">Risk Dashboard</h1>
+  <a class="btn btn-primary" href="/predict-view">New Assessment</a>
+</div>
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="metric"><span>Total Applications</span><strong>{{ summary.total_applications }}</strong></div></div>
+  <div class="col-md-3"><div class="metric"><span>Approved</span><strong>{{ summary.approved_applications }}</strong></div></div>
+  <div class="col-md-3"><div class="metric"><span>Rejected</span><strong>{{ summary.rejected_applications }}</strong></div></div>
+  <div class="col-md-3"><div class="metric"><span>Average Credit Score</span><strong>{{ summary.average_credit_score }}</strong></div></div>
+</div>
+<div class="row g-3">
+  <div class="col-lg-4"><section class="panel"><h2>Approval Rate</h2><canvas id="approvalChart" data-approved="{{ summary.approved_applications }}" data-rejected="{{ summary.rejected_applications }}"></canvas></section></div>
+  <div class="col-lg-4"><section class="panel"><h2>Risk Categories</h2><canvas id="riskChart" data-values='{{ summary.risk_distribution | tojson }}'></canvas></section></div>
+  <div class="col-lg-4"><section class="panel"><h2>Credit Score Distribution</h2><canvas id="scoreChart" data-values='{{ summary.credit_score_distribution | tojson }}'></canvas></section></div>
+</div>
+<section class="panel mt-3"><h2>Monthly Trends</h2><canvas id="trendChart" data-values='{{ summary.monthly_trends | tojson }}'></canvas></section>
+{% endblock %}

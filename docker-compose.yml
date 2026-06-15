@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: creditwise
+      POSTGRES_USER: creditwise
+      POSTGRES_PASSWORD: creditwise
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  web:
+    build: .
+    environment:
+      DATABASE_URL: postgresql+psycopg://creditwise:creditwise@db:5432/creditwise
+      SECRET_KEY: docker-development-secret
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+volumes:
+  postgres_data:

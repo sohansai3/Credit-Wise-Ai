@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3">Application History</h1>
+  <a class="btn btn-outline-primary" href="/applications/export">Export CSV</a>
+</div>
+<form class="row g-2 mb-3">
+  <div class="col-md-4"><input class="form-control" name="search" value="{{ filters.search }}" placeholder="Search applicant"></div>
+  <div class="col-md-2"><select class="form-select" name="decision"><option value="">Decision</option><option {{ 'selected' if filters.decision=='Approved' }}>Approved</option><option {{ 'selected' if filters.decision=='Rejected' }}>Rejected</option></select></div>
+  <div class="col-md-2"><select class="form-select" name="risk"><option value="">Risk</option><option>High Risk</option><option>Medium Risk</option><option>Low Risk</option></select></div>
+  <div class="col-md-2"><button class="btn btn-primary w-100">Filter</button></div>
+</form>
+<section class="panel table-responsive">
+  <table class="table align-middle">
+    <thead><tr><th>ID</th><th>Applicant</th><th>Decision</th><th>Score</th><th>Risk</th><th>Probability</th><th>Limit</th><th></th></tr></thead>
+    <tbody>{% for a in applications %}<tr><td>{{ a.id }}</td><td>{{ a.applicant_name }}</td><td>{{ a.prediction.decision }}</td><td>{{ a.prediction.credit_score }}</td><td>{{ a.prediction.risk_level }}</td><td>{{ '{:.1%}'.format(a.prediction.approval_probability) }}</td><td>${{ '{:,.0f}'.format(a.prediction.recommended_credit_limit) }}</td><td><a class="btn btn-sm btn-outline-primary" href="/reports/{{ a.id }}/download">PDF</a></td></tr>{% endfor %}</tbody>
+  </table>
+</section>
+{% endblock %}

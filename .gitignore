@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.env
+*.db
+reports/
+app/ml/artifacts/*.joblib
+app/ml/artifacts/*.json

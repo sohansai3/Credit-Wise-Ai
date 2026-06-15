@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-shell">
+  <section class="auth-panel">
+    <h1>Create Account</h1>
+    <form method="post" action="/register-view" class="vstack gap-3">
+      <input class="form-control" name="full_name" placeholder="Full name" required>
+      <input class="form-control" name="email" type="email" placeholder="Email" required>
+      <input class="form-control" name="password" type="password" placeholder="Password" minlength="8" required>
+      <select class="form-select" name="role">
+        <option value="loan_officer">Loan Officer</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button class="btn btn-primary">Register</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

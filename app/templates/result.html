@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+{% set p=application.prediction %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="h3">Decision for {{ application.applicant_name }}</h1>
+  <a class="btn btn-outline-primary" href="/reports/{{ application.id }}/download">Download PDF</a>
+</div>
+<div class="row g-3 mb-3">
+  <div class="col-md-3"><div class="metric"><span>Decision</span><strong class="{{ 'text-success' if p.decision=='Approved' else 'text-danger' }}">{{ p.decision }}</strong></div></div>
+  <div class="col-md-3"><div class="metric"><span>Credit Score</span><strong>{{ p.credit_score }}</strong></div></div>
+  <div class="col-md-3"><div class="metric"><span>Risk Level</span><strong>{{ p.risk_level }}</strong></div></div>
+  <div class="col-md-3"><div class="metric"><span>Credit Limit</span><strong>${{ '{:,.0f}'.format(p.recommended_credit_limit) }}</strong></div></div>
+</div>
+<section class="panel">
+  <p class="lead">{{ p.explanation }}</p>
+  <div class="progress mb-3"><div class="progress-bar" style="width: {{ p.approval_probability*100 }}%">{{ '{:.1%}'.format(p.approval_probability) }}</div></div>
+  <div class="row">
+    <div class="col-md-6"><h2>Top Approval Factors</h2><ul class="list-group">{% for f in p.top_approval_factors %}<li class="list-group-item d-flex justify-content-between"><span>{{ f.label }}</span><span>{{ f.impact }}</span></li>{% endfor %}</ul></div>
+    <div class="col-md-6"><h2>Top Rejection Factors</h2><ul class="list-group">{% for f in p.top_rejection_factors %}<li class="list-group-item d-flex justify-content-between"><span>{{ f.label }}</span><span>{{ f.impact }}</span></li>{% endfor %}</ul></div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h3 mb-3">User Management</h1>
+<section class="panel table-responsive">
+  <table class="table">
+    <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th></th></tr></thead>
+    <tbody>{% for u in users %}<tr><td>{{ u.full_name }}</td><td>{{ u.email }}</td><td>{{ u.role }}</td><td>{{ 'Active' if u.is_active else 'Inactive' }}</td><td>{% if u.id != user.id %}<form method="post" action="/admin/users/{{ u.id }}/toggle"><button class="btn btn-sm btn-outline-secondary">Toggle</button></form>{% endif %}</td></tr>{% endfor %}</tbody>
+  </table>
+</section>
+{% endblock %}

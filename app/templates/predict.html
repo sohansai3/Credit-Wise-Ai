@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h3 mb-3">New Credit Card Assessment</h1>
+<form method="post" action="/predict-view" class="panel">
+  <div class="row g-3">
+    {% set fields=[('applicant_name','Applicant Name','text'),('age','Age','number'),('years_employed','Years Employed','number'),('annual_income','Annual Income','number'),('monthly_income','Monthly Income','number'),('existing_loans','Existing Loans','number'),('loan_amount','Loan Amount','number'),('debt_to_income_ratio','Debt-to-Income Ratio','number'),('dependents','Dependents','number'),('credit_history_length','Credit History Length','number'),('previous_defaults','Previous Defaults','number'),('credit_utilization','Credit Utilization','number')] %}
+    {% for name,label,type in fields %}
+    <div class="col-md-3"><label class="form-label">{{ label }}</label><input class="form-control" name="{{ name }}" type="{{ type }}" step="0.01" required></div>
+    {% endfor %}
+    <div class="col-md-3"><label class="form-label">Gender</label><select class="form-select" name="gender"><option>Female</option><option>Male</option><option>Non-binary</option></select></div>
+    <div class="col-md-3"><label class="form-label">Marital Status</label><select class="form-select" name="marital_status"><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>
+    <div class="col-md-3"><label class="form-label">Education</label><select class="form-select" name="education"><option>High School</option><option>Bachelor</option><option>Master</option><option>Doctorate</option></select></div>
+    <div class="col-md-3"><label class="form-label">Employment Type</label><select class="form-select" name="employment_type"><option>Salaried</option><option>Self-employed</option><option>Contract</option><option>Unemployed</option><option>Retired</option></select></div>
+  </div>
+  <button class="btn btn-primary mt-4">Run Assessment</button>
+</form>
+{% endblock %}
